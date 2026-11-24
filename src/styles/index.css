@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+/*
+ * Stand-in for "Story Of Love" (commercial, not available), self-hosted.
+ * Once the real font is added (before this in the `font-script` stack) this rule is simply unused.
+ */
+@font-face {
+  font-family: 'Mrs Saint Delafield';
+  src: url('/fonts/MrsSaintDelafield-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ink font-body text-snow antialiased;
+  }
+  h1, h2, h3, h4, p {
+    text-box: trim-both cap alphabetic;
+  }
+  /* Visible keyboard focus on every interactive element */
+  :focus-visible {
+    @apply outline-2 outline-offset-4 outline-accent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Text link: turns orange, lifts a little and draws an orange underline from the left on hover. */
+  .link-underline {
+    @apply relative inline-block transition-all duration-300 hover:text-accent motion-safe:hover:-translate-y-0.5;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute -bottom-2 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-300;
+  }
+  .link-underline[aria-current="page"] {
+    @apply text-accent;
+  }
+  .link-underline[aria-current="page"]::after,
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    @apply scale-x-100;
+  }
+}
